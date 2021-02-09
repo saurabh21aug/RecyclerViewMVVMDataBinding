@@ -1,7 +1,6 @@
 package com.recyclerviewmvvmdatabinding.ui.movies
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +9,7 @@ import com.recyclerviewmvvmdatabinding.data.models.Movie
 import com.recyclerviewmvvmdatabinding.databinding.RecyclerMovieBinding
 
 
-class MoviesAdapter(val movie: List<Movie>, val listener: RecycleViewClickListener) :
+class MoviesAdapter(val movie: List<Movie>, private val listener: RecycleViewClickListener) :
     RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =

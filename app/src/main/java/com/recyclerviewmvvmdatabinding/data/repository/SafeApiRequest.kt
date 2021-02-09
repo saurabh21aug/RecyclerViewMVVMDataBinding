@@ -1,4 +1,4 @@
-package com.recyclerviewmvvmdatabinding.data
+package com.recyclerviewmvvmdatabinding.data.repository
 
 import retrofit2.Response
 import java.io.IOException
