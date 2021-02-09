@@ -13,6 +13,9 @@ import com.recyclerviewmvvmdatabinding.data.models.Movie
 import com.recyclerviewmvvmdatabinding.data.network.MoviesApi
 import com.recyclerviewmvvmdatabinding.data.repository.MoviesRepository
 import com.recyclerviewmvvmdatabinding.databinding.MoviesFragmentBinding
+import com.recyclerviewmvvmdatabinding.util.hide
+import com.recyclerviewmvvmdatabinding.util.show
+import com.recyclerviewmvvmdatabinding.util.toast
 
 class MoviesFragment : Fragment(), RecycleViewClickListener {
 
@@ -41,10 +44,11 @@ class MoviesFragment : Fragment(), RecycleViewClickListener {
         factory = MoviesViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory).get(MoviesViewModel::class.java)
 
-
         viewModel.getMovies()
 
+        binding.progressbar.show()
         viewModel.movie.observe(viewLifecycleOwner, { movies ->
+            binding.progressbar.hide()
             binding.recyclerViewMovie.apply {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
@@ -53,7 +57,6 @@ class MoviesFragment : Fragment(), RecycleViewClickListener {
         })
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -61,11 +64,9 @@ class MoviesFragment : Fragment(), RecycleViewClickListener {
 
     override fun onItemClick(view: View, movie: Movie) {
         when (view.id) {
-            R.id.movie_image -> Toast.makeText(requireContext(), "Image click", Toast.LENGTH_SHORT)
-                .show()
-            R.id.movie_text_title -> Toast.makeText(context, "Title click", Toast.LENGTH_SHORT)
-                .show()
-            R.id.movie_text_bio -> Toast.makeText(context, "Bio click", Toast.LENGTH_SHORT).show()
+            R.id.movie_image -> context.toast("Image Click")
+            R.id.movie_text_title -> context.toast("Title click")
+            R.id.movie_text_bio -> context.toast("Bio click")
         }
     }
 }
